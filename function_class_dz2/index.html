@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- <script src="1.js" defer></script>
+    <script src="2.js" defer></script> -->
+    <style>
+      .product {
+        border: 1px solid #ccc;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .review {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+      }
+      .review-form {
+        margin-top: 20px;
+      }
+      .error {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <script>
+      function uid() {
+        return Math.random().toString(36).slice(2);
+      }
+
+      const initialData = [
+        {
+          id: uid(),
+          product: "Apple iPhone 13",
+          reviews: [
+            {
+              id: uid(),
+              text: "Отличный телефон! Батарея держится долго.",
+            },
+            {
+              id: uid(),
+              text: "Камера супер, фото выглядят просто потрясающе.",
+            },
+          ],
+        },
+        {
+          id: uid(),
+          product: "Samsung Galaxy Z Fold 3",
+          reviews: [
+            {
+              id: uid(),
+              text: "Интересный дизайн, но дорогой.",
+            },
+          ],
+        },
+        {
+          id: uid(),
+          product: "Sony PlayStation 5",
+          reviews: [
+            {
+              id: uid(),
+              text: "Люблю играть на PS5, графика на высоте.",
+            },
+          ],
+        },
+      ];
+
+      const appElement = document.getElementById("app");
+
+      function renderProduct(data) {}
+    </script>
+  </body>
+</html>
