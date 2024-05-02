@@ -71,9 +71,82 @@
         },
       ];
 
-      const appElement = document.getElementById("app");
+      const appEl = document.querySelector("#app");
 
-      function renderProduct(data) {}
+      function renderCards() {
+        appEl.innerHTML = '<div class="row"></div>';
+        const rowEl = document.querySelector("#app .row");
+
+        initialData.forEach((product) => {
+          const commentsHtml = renderProductComments(product.reviews);
+
+          const productTpl = `
+      <div class="col-sm-6 mb-4">
+        <div class="card" data-id="${product.id}">
+          <div class="card-body">
+            <h5 class="card-title">${product.product}</h5>
+            ${commentsHtml}
+            <textarea class="form-control mt-3" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <div class="text-end">
+              <button class="btn btn-primary mt-4 js-add-comment" type="button" >Оставить комментарий</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+
+          rowEl.innerHTML += productTpl;
+        });
+      }
+
+      function renderProductComments(comments) {
+        let html = "";
+
+        comments.forEach((comment) => {
+          html += `<li class="list-group-item">${comment.text}</li>`;
+        });
+
+        return `<ul class="list-group mt-4">${html}</ul>`;
+      }
+
+      function initApp() {
+        renderCards();
+        initEventListeners();
+      }
+
+      function addComment(productId) {
+        const productEl = document.querySelector(`[data-id="${productId}"]`);
+
+        const commentTextareaEl = productEl.querySelector(".form-control");
+        let commentsListEl = productEl.querySelector(".list-group");
+
+        if (commentTextareaEl.value.length < 50) {
+          alert(
+            "Длина комментария не может быть менее 50 и более 500 символов"
+          );
+          return;
+        }
+
+        if (commentTextareaEl.value.trim()) {
+          commentsListEl.innerHTML =
+            commentsListEl.innerHTML +
+            `<li class="list-group-item">${commentTextareaEl.value}</li>`;
+          commentTextareaEl.value = "";
+        }
+      }
+
+      function initEventListeners() {
+        document.addEventListener("click", function (e) {
+          const targetClassname = e.target.className; // Or any other selector.
+          const productId = e.target.closest(".card").getAttribute("data-id");
+
+          if (targetClassname.includes("js-add-comment")) {
+            addComment(productId);
+          }
+        });
+      }
+
+      initApp();
     </script>
   </body>
 </html>
